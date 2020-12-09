@@ -1,5 +1,7 @@
 #include "webenginepage.h"
-#include <QWebEngineSettings>
+#include <QDir>
+#include <QDebug>
+#include <DMessageManager>
 
 WebEnginePage::WebEnginePage(QObject *parent) : QWebEnginePage(parent){}
 QWebEnginePage *WebEnginePage::createWindow(QWebEnginePage::WebWindowType type)
