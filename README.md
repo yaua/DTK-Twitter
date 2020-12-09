@@ -1,7 +1,7 @@
 # DTKtwitter
 This is the simple app with deepin tool kit webview.
 
-it is only viewable content from twitter and can not save imgs, docs file.I have consulted code from deepinenespañol and deepin-opensource to build this app.
+it is only viewable content from twitter and can save imgs, docs file.I have consulted code from deepinenespañol and deepin-opensource to build this app.
 
 ScreenShot(s):
 
