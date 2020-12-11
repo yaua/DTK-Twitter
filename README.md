@@ -7,5 +7,5 @@
 
 ![Screen Capture_twitter_20201126163742](https://raw.githubusercontent.com/yaua/DTK-Twitter/main/screens/Screen%20Capture_twitter_20201211095435.png)
 ## Release Notes
-v1.3.0 2020/12/11.
-You should remove old app before install.
+- v1.3.0 2020/12/11.
+- You should remove old app before install.
