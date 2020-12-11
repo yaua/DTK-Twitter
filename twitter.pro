@@ -15,15 +15,10 @@ SOURCES += main.cpp\
         widget.cpp
 
 HEADERS  += mainwindow.h \
-         globaldefine.h \
          webenginepage.h \
          widget.h
 
-FORMS += widget.ui
+FORMS +=
 
 RESOURCES += imgs.qrc
-
-TRANSLATIONS += translations/WebApp_zh_CN.ts \
-    translations/WebApp_es_ES.ts
-
 

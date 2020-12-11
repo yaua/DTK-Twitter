@@ -89,7 +89,6 @@ MainWindow::MainWindow(QString yTitle,
     downloadProgressBar->setLayout(progress);
     message->setIcon(QIcon::fromTheme("deepin-download").pixmap(64, 64));
     message->setWidget(downloadProgressBar);
-
     connect(btnBack, &DToolButton::clicked, this, [&]()
     {
         m_widget->goBack();
@@ -119,7 +118,6 @@ MainWindow::MainWindow(QString yTitle,
     connect(m_tray, &QSystemTrayIcon::activated, this, &MainWindow::trayIconActivated);
     connect(m_widget->getPage()->profile(), &QWebEngineProfile::downloadRequested, this, &MainWindow::on_downloadStart);
 }
-
 MainWindow::~MainWindow()
 {
     emit sigQuit();
@@ -127,7 +125,6 @@ MainWindow::~MainWindow()
     delete m_dialog;
     delete m_tray;
 }
-
 void MainWindow::setIcon(QString yIconPath)
 {
     QFileInfo fi(yIconPath);
@@ -143,7 +140,6 @@ void MainWindow::setIcon(QString yIconPath)
         qDebug() << yIconPath << "is Not Exists!";
     }
 }
-
 void MainWindow::hideButtons()
 {
     if(m_hideButtons->isChecked())
@@ -159,7 +155,6 @@ void MainWindow::hideButtons()
         btnRefresh->show();
     }
 }
-
 QString MainWindow::saveAs(QString fileName)
 {
     QString saveFile = QFileDialog::getSaveFileName(this, tr("Save As"), QDir::homePath() + "/Downloads/" + fileName);
@@ -191,9 +186,6 @@ void MainWindow::trayIconActivated(QSystemTrayIcon::ActivationReason reason)
 }
 void MainWindow::on_downloadStart(QWebEngineDownloadItem *item)
 {
-    /* Try to lock the mutex and prohibit downloading multiple files at the same time */
-    if(mutex.tryLock())
-    {
         QString fileName = QFileInfo(item->path()).fileName();
         QString filePath = saveAs(fileName);
         if(filePath.isEmpty())
@@ -230,11 +222,6 @@ void MainWindow::on_downloadStart(QWebEngineDownloadItem *item)
         resume->hide();
         pause->show();
         this->message->show();
-    }
-    else
-    {
-        DMessageManager::instance()->sendMessage(this, QIcon::fromTheme("dialog-cancel").pixmap(64, 64), QString(tr("%1Wait for previous download to complete!")).arg("    "));
-    }
 }
 
 void MainWindow::on_downloadProgress(qint64 bytesReceived, qint64 bytesTotal)
@@ -247,7 +234,6 @@ void MainWindow::on_downloadProgress(qint64 bytesReceived, qint64 bytesTotal)
 
 void MainWindow::on_downloadFinish(QString filePath)
 {
-    mutex.unlock(); // Unlock the mutex and allow new files to be downloaded
     message->hide();
     if(!isCanceled) // A prompt message will be displayed when the download is complete
     {
@@ -284,7 +270,7 @@ void MainWindow::on_downloadCancel(QWebEngineDownloadItem *item)
 {
     isCanceled = true;  // Cancel download
     item->cancel();
-    mutex.unlock();
     message->hide();
-    DMessageManager::instance()->sendMessage(this, QIcon::fromTheme("dialog-error").pixmap(64, 64), QString(tr("%1Download canceled!")).arg("    "));
+    //DMessageManager::instance()->sendMessage(this, QIcon::fromTheme("dialog-error").pixmap(64, 64), QString(tr("%1Download canceled!")).arg("    "));
 }
+
