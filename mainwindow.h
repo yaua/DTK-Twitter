@@ -35,8 +35,6 @@ private:
     QAction *m_hideButtons;
     QMenu *t_menu;
     QAction *t_show;
-    QAction *lightAction;
-    QAction *darkAction;
     QAction *t_exit;
     QWidget *downloadProgressBar;
     DProgressBar *bar;
