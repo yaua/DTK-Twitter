@@ -16,11 +16,9 @@ MainWindow::MainWindow(QString yTitle,
                        int nHeight,
                        bool tray,
                        bool nHideButtons,
-                       DAboutDialog *dialog,
                        QWidget *parent)
     : DMainWindow(parent)
     , m_widget(new Widget(yUrl))
-    , m_dialog(dialog)
     , m_tray(new QSystemTrayIcon)
     , btnBack(new DToolButton(titlebar()))
     , btnForward(new DToolButton(titlebar()))
@@ -106,10 +104,10 @@ MainWindow::MainWindow(QString yTitle,
     {
         hideButtons();
     });
-
     connect(t_show, &QAction::triggered, this, [=]()
     {
         this->activateWindow();
+        showNormal();
     });
     connect(t_exit, &QAction::triggered, this, [=]()
     {
@@ -122,7 +120,6 @@ MainWindow::~MainWindow()
 {
     emit sigQuit();
     delete m_widget;
-    delete m_dialog;
     delete m_tray;
 }
 void MainWindow::setIcon(QString yIconPath)
@@ -140,6 +137,7 @@ void MainWindow::setIcon(QString yIconPath)
         qDebug() << yIconPath << "is Not Exists!";
     }
 }
+
 void MainWindow::hideButtons()
 {
     if(m_hideButtons->isChecked())
@@ -176,7 +174,6 @@ void MainWindow::trayIconActivated(QSystemTrayIcon::ActivationReason reason)
 {
     switch(reason)
     {
-        /* Responding to tray click events */
         case QSystemTrayIcon::Trigger:
             this->activateWindow();
             break;

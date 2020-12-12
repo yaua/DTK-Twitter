@@ -1,7 +1,6 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 #include <DMainWindow>
-#include <DAboutDialog>
 #include <DToolButton>
 #include <DProgressBar>
 #include <DPushButton>
@@ -23,13 +22,11 @@ public:
                int nHeight,
                bool tray = false,
                bool nHideButtons = false,
-               DAboutDialog *dialog = nullptr,
                QWidget *parent = nullptr);
     ~MainWindow();
     void setIcon(QString yIconPath);
 private:
     Widget *m_widget;
-    DAboutDialog *m_dialog;
     QSystemTrayIcon *m_tray;
     DToolButton *btnBack;
     DToolButton *btnForward;
@@ -62,7 +59,6 @@ private slots:
     void on_downloadPause(QWebEngineDownloadItem *item);
     void on_downloadResume(QWebEngineDownloadItem *item);
     void on_downloadCancel(QWebEngineDownloadItem *item);
-
 signals:
     void sigQuit();
 };
